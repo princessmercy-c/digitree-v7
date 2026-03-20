@@ -158,6 +158,8 @@ export const TEAM_MEMBERS = [
     role: 'Chief Operating Officer', 
     color: '#b45309', 
     image: 'https://cdn.shopify.com/s/files/1/0656/6386/0839/files/IMG-20260320-WA0049.jpg?v=1774027225'
+   },   
+  
   { 
     name: 'chidinma ogbu', 
     role: 'community manager', 
