@@ -1,9 +1,8 @@
 
-// constants.jsx — ALL site content lives here.
-// To personalise: update SITE, BANK, TEAM_MEMBERS, COURSES, etc.
-// ============================================================
+import mercyImg from '../assets/MERCIVIX.jpeg';
+import graceImg from '../assets/GRACe.jpeg';
+import valentineImg from '../assets/Sir. Valentine.jpeg';
 
-// ── Site config ──────────────────────────────────────────────
 export const SITE = {
   name:         'Digitree Innovation',
   tagline:      'Innovate, earn and lead a digital generation',
@@ -127,33 +126,33 @@ export const SERVICES = [
   { icon: 'fas fa-network-wired',      title: 'Community & Networking',   desc: 'A vibrant network of developers, designers, and entrepreneurs across Nigeria.' },
 ]
 
-
 export const TEAM_MEMBERS = [
+  {
+    name: 'Mr. Valentine Onyekachi Festus',
+    role: 'Founder & CEO',
+    image: valentineImg, // No quotes around variables!
+    color: '#1d4ed8'
+  },
+  {
+    name: 'Sunday-Nwuma Grace Chinenye',
+    role: 'CFO',
+    image: graceImg,
+    color: '#1d4ed8'
+  },
+  {
+    name: 'Agbaeze Mercy Adaeze (MERCIVIX)',
+    role: 'Lead Developer',
+    image: mercyImg,
+    color: '#6f42c1'
+  },
 
-  { 
-    name: 'Mr. Valentine Onyekachi Festus', 
-    role: 'Founder & C.E.O ', 
-    color: '#1a3a8f', 
-    image: 'https://cdn.shopify.com/s/files/1/0656/6386/0839/files/Sir._Valentine.jpg?v=1774011437' 
-  },
-  { 
-    name: 'Sunday-Nwuma Grace Chinenye', 
-    role: 'CFO', 
-    color: '#2952c8', 
-    image: 'https://cdn.shopify.com/s/files/1/0656/6386/0839/files/GRACe.jpg?v=1774015375' 
-  },
   { 
     name: 'Solomon Peter Oigocho', 
     role: 'Sales Executive officer', 
     color: '#0f5132', 
     image: 'https://cdn.shopify.com/s/files/1/0656/6386/0839/files/Solomon.jpg?v=1774013002' 
   },
-  { 
-    name: 'Agbaeze Mercy Adaeze (MERCIVIX)', 
-    role: 'Lead Developer', 
-    color: '#6f42c1', 
-    image: 'https://cdn.shopify.com/s/files/1/0656/6386/0839/files/MERCIVIX.jpg?v=1774011446' 
-  },
+
   { 
     name: 'emeka onyekachi', 
     role: 'gadgets & sales manager', 
