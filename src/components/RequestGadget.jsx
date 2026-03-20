@@ -8,7 +8,7 @@ export default function RequestGadget() {
   const handleSubmit = () => {
     if (!form.name || !form.type || !form.desc) { alert('Please fill all fields.'); return }
     const msg = `Hello Digitree! 📦\n\nGadget Request:\nName: ${form.name}\nType: ${form.type}\nDescription: ${form.desc}\n\nPlease advise on availability and pricing. Thank you!`;
-    window.open(`https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(msg)}`, '_blank');.   
+    window.open(`https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(msg)}`, '_blank');   
 };
   const field = { width:'100%', background:'rgba(255,255,255,0.1)', border:'1px solid rgba(255,255,255,0.22)', borderRadius:9, padding:'0.75rem 1rem', color:'#fff', fontFamily:'var(--font-sans)', fontSize:'0.9rem', outline:'none' }
 
