@@ -15,7 +15,7 @@ export default function BlogSection() {
         <div className="blog-grid">
           {BLOG_POSTS.map((post, i) => (
             <article key={post.id} className={`blog-card ${i===0?'blog-card--featured':''}`}>
-              <div className="blog-card__thumb" style={{ backgroundImage: 'url(' + post.image + ')', backgroundSize: 'cover' }}
+              <div className="blog-card__thumb" style={{ backgroundImage: 'url(' + post.image + ')', backgroundSize: 'cover' }}>
                 <span className="blog-card__emoji" aria-hidden="true">{post.emoji}</span>
                 <span className="blog-card__category">{post.category}</span>
               </div>
@@ -35,7 +35,7 @@ export default function BlogSection() {
                   </div>
                 </div>
                 <button className="blog-card__read-btn"
-                  onClick={() => window.open('https://wa.me/2349037042744', '_blank')}
+                  onClick={() => window.open('https://wa.me/2349037042744', '_blank')}>
                   Read Article <i className="fas fa-arrow-right" />
                 </button>
               </div>
