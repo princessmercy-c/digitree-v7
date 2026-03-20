@@ -8,14 +8,14 @@ export const SITE = {
   name:         'Digitree Innovation',
   tagline:      'Innovate, earn and lead a digital generation',
   phone:        '09037042744',
-  whatsapp:     'https://wa.link/n9y3hh',       
+  whatsapp:     'https://wa.link/5ugory',       
   email:        'digitreeinnovation@gmail.com',
   location:     'Nsukka, Enugu State, Nigeria',
   founded:      '2025',
   instagram:    'https://www.instagram.com/digitree_innovation?igsh=bnA1cmsxamwxZzV6',   
   tiktok:       'https://www.tiktok.com/@digitree1?_r=1&_t=ZS-94nJhBaw96W',
   facebook:     'https://www.facebook.com/profile.php?id=61583754311626',
-  shopifyStore: 'shop.digitree.tech',
+  shopifyStore: 'https://shop.digitree.tech/',
 }
 
 
@@ -132,13 +132,13 @@ export const TEAM_MEMBERS = [
 
   { 
     name: 'Mr. Valentine Onyekachi Festus', 
-    role: 'Founder ', 
+    role: 'Founder & C.E.O ', 
     color: '#1a3a8f', 
     image: 'https://cdn.shopify.com/s/files/1/0656/6386/0839/files/Sir._Valentine.jpg?v=1774011437' 
   },
   { 
     name: 'Sunday-Nwuma Grace Chinenye', 
-    role: 'CEO 2', 
+    role: 'CFO', 
     color: '#2952c8', 
     image: 'https://cdn.shopify.com/s/files/1/0656/6386/0839/files/GRACe.jpg?v=1774015375' 
   },
