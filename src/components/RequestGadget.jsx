@@ -8,8 +8,7 @@ export default function RequestGadget() {
   const handleSubmit = () => {
     if (!form.name || !form.type || !form.desc) { alert('Please fill all fields.'); return }
     const msg = `Hello Digitree! 📦\n\nGadget Request:\nName: ${form.name}\nType: ${form.type}\nDescription: ${form.desc}\n\nPlease advise on availability and pricing. Thank you!`
-    window.open(`https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(msg)}`, '_blank')
-  }
+    window.open(https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(msg)}, '_blank')
 
   const field = { width:'100%', background:'rgba(255,255,255,0.1)', border:'1px solid rgba(255,255,255,0.22)', borderRadius:9, padding:'0.75rem 1rem', color:'#fff', fontFamily:'var(--font-sans)', fontSize:'0.9rem', outline:'none' }
 
@@ -20,7 +19,8 @@ export default function RequestGadget() {
           <div style={{ display:'inline-block', fontSize:'0.72rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'2.5px', background:'rgba(255,255,255,0.12)', border:'1px solid rgba(255,255,255,0.2)', padding:'0.35rem 0.9rem', borderRadius:999, marginBottom:'1rem' }}>Can't find it?</div>
           <h2 style={{ fontSize:'clamp(1.8rem,3vw,2.4rem)', fontWeight:800, marginBottom:'1rem', lineHeight:1.2 }}>Request Any Gadget</h2>
           <p style={{ opacity:0.82, lineHeight:1.85, marginBottom:'2rem' }}>Don't see what you need? Send us a WhatsApp request and we'll source it at the best price. Fast response guaranteed from our {SITE.location} team.</p>
-          <a href={`https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent('Hello Digitree! I would like to request a gadget.')}`} target="_blank" rel="noreferrer" className="btn btn-whatsapp btn-lg" style={{ textDecoration:'none' }}>
+            <a href={`https://wa.me/${SITE.whatsapp}`} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+
             <i className="fab fa-whatsapp" style={{ fontSize:'1.2rem' }} /> Request on WhatsApp
           </a>
         </div>
