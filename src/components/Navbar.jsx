@@ -46,35 +46,26 @@ export default function Navbar({ cartQty, currentUser, onOpenCart, onOpenLogin, 
             <span>Cart</span>
             {cartQty > 0 && <span className="cart-badge">{cartQty}</span>}
           </button>
-          <div className="navbar__actions">
-  {/* Cart Button stays the same */}
-  <button className="navbar__cart" onClick={onOpenCart}>
-    <i className="fas fa-shopping-cart" />
-    <span>Cart</span>
-    {cartQty > 0 && <span className="cart-badge">{cartQty}</span>}
-  </button>
 
-  {/* New Login/User Logic */}
-  {currentUser ? (
-    <>
-      <button className="btn btn-outline btn-sm" onClick={onOpenDash}>
-        Dashboard
-      </button>
-      <button className="btn btn-primary btn-sm" onClick={() => auth.signOut()}>
-        Logout
-      </button>
-    </>
-  ) : (
-    <>
-      <button className="btn btn-outline btn-sm" onClick={onOpenLogin}>
-        Login
-      </button>
-      <button className="btn btn-primary btn-sm" onClick={onOpenLogin}>
-        Get Started
-      </button>
-    </>
-  )}
-</div>
+          {currentUser ? (
+            <>
+              <button className="btn btn-outline btn-sm" onClick={onOpenDash}>
+                Dashboard
+              </button>
+              <button className="btn btn-primary btn-sm" onClick={() => auth.signOut()}>
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <button className="btn btn-outline btn-sm" onClick={onOpenLogin}>
+                Login
+              </button>
+              <button className="btn btn-primary btn-sm" onClick={onOpenLogin}>
+                Get Started
+              </button>
+            </>
+          )}
 
           <button
             className={`navbar__hamburger ${mobileOpen ? 'is-open' : ''}`}

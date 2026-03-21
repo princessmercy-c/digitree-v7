@@ -69,7 +69,7 @@ export default function MeetTheTeam() {
           {TEAM_MEMBERS.map(member => (
             <div key={member.name} className="team-card">
               <div className="team-card__avatar" style={{ background:`linear-gradient(135deg,${member.color},${member.color}cc)` }}>
-                {member.photo
+                {member.image
                   ? <img src={member.image} alt={member.name} className="team-card__image" />
                   : <span className="team-card__initials">{getInitials(member.name)}</span>
                 }
