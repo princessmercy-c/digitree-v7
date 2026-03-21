@@ -7,7 +7,7 @@ export const SITE = {
   name:         'Digitree Innovation',
   tagline:      'Innovate, earn and lead a digital generation',
   phone:        '09037042744',
-whatsapp: 'https://wa.me/2349037042744',    
+whatsapp: '2349020730644',
   email:        'digitreeinnovation@gmail.com',
   location:     'Nsukka, Enugu State, Nigeria',
   founded:      '2025',
