@@ -7,7 +7,7 @@ export const SITE = {
   name:         'Digitree Innovation',
   tagline:      'Innovate, earn and lead a digital generation',
   phone:        '09037042744',
-whatsapp: '2349020730644',
+whatsapp: '09037042744',
   email:        'digitreeinnovation@gmail.com',
   location:     'Nsukka, Enugu State, Nigeria',
   founded:      '2025',
@@ -128,56 +128,38 @@ export const SERVICES = [
 
 export const TEAM_MEMBERS = [
   {
-    name: 'Mr. Valentine Onyekachi Festus',
-    role: 'Founder & CEO',
+    name: 'MR.VALENTINE ONYEKACHI FESTUS',
+    role: 'FOUNDER $ CEO',
     image: valentineImg, // No quotes around variables!
     color: '#1d4ed8'
   },
+  { 
+    name: 'NWAFOR CHIDERA MICHAEL', 
+    role: 'CHIEF OPERATING OFFICER', 
+    color: '#b45309', 
+    image: 'https://cdn.shopify.com/s/files/1/0656/6386/0839/files/IMG-20260320-WA0049.jpg?v=1774027225'
+   },   
+  
   {
-    name: 'Sunday-Nwuma Grace Chinenye',
-    role: 'CFO',
+    name: 'SUNDAY-NWUMA GRACE CHINENYE',
+    role: 'CHIEF FINANCIAL OFFICER',
     image: graceImg,
     color: '#1d4ed8'
   },
   {
     name: 'Agbaeze Mercy Adaeze (MERCIVIX)',
-    role: 'Lead Developer',
+    role: 'LEAD DEVELOPER',
     image: mercyImg,
     color: '#6f42c1'
   },
 
   { 
-    name: 'Solomon Peter Oigocho', 
+    name: 'SOLOMON PETER OIGOCHO', 
     role: 'Sales Executive officer', 
     color: '#0f5132', 
     image: 'https://cdn.shopify.com/s/files/1/0656/6386/0839/files/Solomon.jpg?v=1774013002' 
   },
-
-  { 
-    name: 'Nwafor Chidera Michael', 
-    role: 'Chief Operating Officer', 
-    color: '#b45309', 
-    image: 'https://cdn.shopify.com/s/files/1/0656/6386/0839/files/IMG-20260320-WA0049.jpg?v=1774027225'
-   },   
   
-  { 
-    name: 'chidinma ogbu', 
-    role: 'community manager', 
-    color: '#c2185b', 
-    image: 'https://cdn.shopify.com/s/files/1/0656/6386/0839/files/electronics-bold-2.jpg?v=1774009190' 
-  },
-  { 
-    name: 'ifeanyi ani', 
-    role: 'cybersecurity instructor', 
-    color: '#00695c', 
-    image: 'https://cdn.shopify.com/s/files/1/0656/6386/0839/files/electronics-bold-3.jpg?v=1774009191' 
-  },
-  { 
-    name: 'ngozi okafor', 
-    role: 'digital marketing lead', 
-    color: '#1565c0', 
-    image: 'https://cdn.shopify.com/s/files/1/0656/6386/0839/files/images.jpg?v=1774010239' 
-  }
 ];
 
 
