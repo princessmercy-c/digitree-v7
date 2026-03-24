@@ -16,7 +16,9 @@ whatsapp: '09037042744',
   facebook:     'https://www.facebook.com/profile.php?id=61583754311626',
   shopifyStore: 'https://shop.digitree.tech/',
 }
-
+// Update the WhatsApp Contact
+export const WHATSAPP_NUMBER = "09037042744";
+export const WHATSAPP_LINK = "https://wa.me/2349037042744"; 
 
 export const BANK = {
   bankName:    'Zenith bank',
