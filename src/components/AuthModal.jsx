@@ -1,57 +1,61 @@
 import React, { useState } from 'react'
-import { auth } from '../utils/firebase'; 
-
-
-import { 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
-  onAuthStateChanged 
+import { auth } from '../utils/firebase';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithRedirect
 } from "firebase/auth";
 
-// 1. SIGN UP FUNCTION
-const handleSignUp = async (email, password) => {
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    console.log("User registered:", userCredential.user);
-    // You can now save extra info (like their role) to Firestore here
-  } catch (error) {
-    console.error("Signup Error:", error.message);
-  }
-};
-
-// 2. LOGIN FUNCTION
-const handleLogin = async (email, password) => {
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    console.log("User logged in:", userCredential.user);
-  } catch (error) {
-    console.error("Login Error:", error.message);
-  }
-};
-
-
+const googleProvider = new GoogleAuthProvider();
 
 export default function AuthModal({ open, onClose, onLogin, onRegister, onGoogleLogin }) {
   const [mode,  setMode]  = useState('login')
   const [form,  setForm]  = useState({ name:'', email:'', password:'' })
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const set = (k,v) => setForm(p => ({ ...p, [k]:v }))
 
-  const handleLogin = () => {
-    const result = onLogin({ email:form.email, password:form.password })
-    if (result && !result.ok) { setError(result.error); return }
-    onClose()
+  const handleLogin = async () => {
+    setError('');
+    setLoading(true);
+    try {
+      await signInWithEmailAndPassword(auth, form.email, form.password);
+      onClose();
+    } catch (err) {
+      setError(err.message.replace('Firebase: ', ''));
+    } finally {
+      setLoading(false);
+    }
   }
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (!form.name||!form.email||!form.password) { setError('Please fill in all fields.'); return }
     if (form.password.length < 6) { setError('Password must be at least 6 characters.'); return }
-    onRegister({ name:form.name, email:form.email, password:form.password })
-    onClose()
+    setError('');
+    setLoading(true);
+    try {
+      await createUserWithEmailAndPassword(auth, form.email, form.password);
+      onClose();
+    } catch (err) {
+      setError(err.message.replace('Firebase: ', ''));
+    } finally {
+      setLoading(false);
+    }
   }
 
-  const handleGoogle = () => { onGoogleLogin(form.email||undefined); onClose() }
-  const switchMode   = (m) => { setMode(m); setError(''); setForm({ name:'', email:'', password:'' }) }
+  const handleGoogle = async () => {
+    setError('');
+    setLoading(true);
+    try {
+      await signInWithRedirect(auth, googleProvider);
+    } catch (err) {
+      setError(err.message.replace('Firebase: ', ''));
+      setLoading(false);
+    }
+  }
+
+  const switchMode = (m) => { setMode(m); setError(''); setForm({ name:'', email:'', password:'' }) }
 
   if (!open) return null
 
@@ -59,11 +63,11 @@ export default function AuthModal({ open, onClose, onLogin, onRegister, onGoogle
     <div className="modal-overlay is-open" onClick={e => e.target===e.currentTarget && onClose()}>
       <div className="modal-box">
         <div className="modal-header">
-          <h2 className="modal-title">{mode==='login' ? '👋 Welcome Back' : '🚀 Create Account'}</h2>
+          <h2 className="modal-title">{mode==='login' ? 'Welcome Back' : 'Create Account'}</h2>
           <button className="modal-close" onClick={onClose} aria-label="Close">✕</button>
         </div>
         <div className="modal-body">
-          <div className="form-notice">🔐 Your session is saved — you won't need to log in every time.</div>
+          <div className="form-notice">Your session is saved — you won't need to log in every time.</div>
           {error && <div className="form-error">{error}</div>}
 
           {mode==='register' && (
@@ -86,13 +90,14 @@ export default function AuthModal({ open, onClose, onLogin, onRegister, onGoogle
           </div>
 
           <button className="btn btn-primary btn-block" style={{ borderRadius:10, padding:'0.9rem' }}
-            onClick={mode==='login' ? handleLogin : handleRegister}>
-            {mode==='login' ? 'Login to My Account' : 'Create My Account'}
+            onClick={mode==='login' ? handleLogin : handleRegister}
+            disabled={loading}>
+            {loading ? 'Please wait...' : (mode==='login' ? 'Login to My Account' : 'Create My Account')}
           </button>
 
           <div className="form-divider">or continue with</div>
 
-          <button className="btn-google" onClick={handleGoogle}>
+          <button className="btn-google" onClick={handleGoogle} disabled={loading}>
             <img src="https://www.svgrepo.com/show/475656/google-color.svg" width={20} height={20} alt="Google" />
             Sign {mode==='login' ? 'in' : 'up'} with Google
           </button>

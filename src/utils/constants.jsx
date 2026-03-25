@@ -2,6 +2,12 @@
 import mercyImg from '../assets/MERCIVIX.jpeg';
 import graceImg from '../assets/GRACe.jpeg';
 import valentineImg from '../assets/Sir. Valentine.jpeg';
+import courseWebDev from '../assets/course-web-dev.jpeg';
+import courseDataAnalysis from '../assets/course-data-analysis.jpeg';
+import courseUiUx from '../assets/course-ui-ux.jpeg';
+import courseCybersecurity from '../assets/course-cybersecurity.jpeg';
+import courseDigitalMarketing from '../assets/course-digital-marketing.jpg';
+import courseReactMobile from '../assets/course-react-mobile.webp';
 
 export const SITE = {
   name:         'Digitree Innovation',
@@ -59,7 +65,7 @@ export const COURSES = [
   {
     id: 'c1', title: 'Web Development Fundamentals',
     desc: 'Build modern websites from scratch with HTML, CSS, and JavaScript. Perfect for beginners.',
-    icon: '💻', badge: 'Bestseller', duration: '6 weeks', level: 'Beginner', price: 15000,
+    icon: '💻', image: courseWebDev, badge: 'Bestseller', duration: '6 weeks', level: 'Beginner', price: 15000,
     plans: [
       { name: 'Basic',   price: 15000, desc: 'Self-paced video access' },
       { name: 'Pro',     price: 25000, desc: '+ Live Q&A sessions & feedback' },
@@ -69,7 +75,7 @@ export const COURSES = [
   {
     id: 'c2', title: 'Data Analysis with Python',
     desc: 'Master data manipulation, visualisation, and business insights using Python and pandas.',
-    icon: '📊', badge: 'Popular', duration: '5 weeks', level: 'Intermediate', price: 18000,
+    icon: '📊', image: courseDataAnalysis, badge: 'Popular', duration: '5 weeks', level: 'Intermediate', price: 18000,
     plans: [
       { name: 'Basic',   price: 18000, desc: 'Self-paced video access' },
       { name: 'Pro',     price: 28000, desc: '+ Live Q&A sessions & feedback' },
@@ -79,7 +85,7 @@ export const COURSES = [
   {
     id: 'c3', title: 'UI/UX Design with Figma',
     desc: 'Design beautiful digital products. Learn wireframing, prototyping, and design systems.',
-    icon: '🎨', badge: 'New', duration: '4 weeks', level: 'Beginner', price: 12000,
+    icon: '🎨', image: courseUiUx, badge: 'New', duration: '4 weeks', level: 'Beginner', price: 12000,
     plans: [
       { name: 'Basic',   price: 12000, desc: 'Self-paced video access' },
       { name: 'Pro',     price: 22000, desc: '+ Live Q&A sessions & feedback' },
@@ -89,7 +95,7 @@ export const COURSES = [
   {
     id: 'c4', title: 'Cybersecurity Essentials',
     desc: 'Learn network security, ethical hacking basics, and how to protect digital systems.',
-    icon: '🔒', badge: 'Hot', duration: '5 weeks', level: 'Intermediate', price: 20000,
+    icon: '🔒', image: courseCybersecurity, badge: 'Hot', duration: '5 weeks', level: 'Intermediate', price: 20000,
     plans: [
       { name: 'Basic',   price: 20000, desc: 'Self-paced video access' },
       { name: 'Pro',     price: 30000, desc: '+ Live Q&A sessions & feedback' },
@@ -99,7 +105,7 @@ export const COURSES = [
   {
     id: 'c5', title: 'Digital Marketing & SEO',
     desc: 'Grow brands online with social media marketing, content strategy, SEO, and paid ads.',
-    icon: '📱', badge: 'Trending', duration: '4 weeks', level: 'Beginner', price: 10000,
+    icon: '📱', image: courseDigitalMarketing, badge: 'Trending', duration: '4 weeks', level: 'Beginner', price: 10000,
     plans: [
       { name: 'Basic',   price: 10000, desc: 'Self-paced video access' },
       { name: 'Pro',     price: 18000, desc: '+ Live Q&A sessions & feedback' },
@@ -109,7 +115,7 @@ export const COURSES = [
   {
     id: 'c6', title: 'React & Mobile App Development',
     desc: 'Build cross-platform apps with React and React Native — deploy to iOS, Android, and web.',
-    icon: '📲', badge: 'New', duration: '7 weeks', level: 'Intermediate', price: 22000,
+    icon: '📲', image: courseReactMobile, badge: 'New', duration: '7 weeks', level: 'Intermediate', price: 22000,
     plans: [
       { name: 'Basic',   price: 22000, desc: 'Self-paced video access' },
       { name: 'Pro',     price: 32000, desc: '+ Live Q&A sessions & feedback' },
@@ -130,38 +136,29 @@ export const SERVICES = [
 
 export const TEAM_MEMBERS = [
   {
-    name: 'MR.VALENTINE ONYEKACHI FESTUS',
-    role: 'FOUNDER $ CEO',
-    image: valentineImg, // No quotes around variables!
+    name: 'MR. VALENTINE ONYEKACHI FESTUS',
+    role: 'CEO',
+    image: valentineImg,
     color: '#1d4ed8'
   },
-  { 
-    name: 'NWAFOR CHIDERA MICHAEL', 
-    role: 'CHIEF OPERATING OFFICER', 
-    color: '#b45309', 
+  {
+    name: 'NWAFOR CHIDERA MICHAEL',
+    role: 'COO',
+    color: '#b45309',
     image: 'https://cdn.shopify.com/s/files/1/0656/6386/0839/files/IMG-20260320-WA0049.jpg?v=1774027225'
-   },   
-  
+  },
   {
     name: 'SUNDAY-NWUMA GRACE CHINENYE',
-    role: 'CHIEF FINANCIAL OFFICER',
+    role: 'CFO',
     image: graceImg,
     color: '#1d4ed8'
   },
   {
-    name: 'Agbaeze Mercy Adaeze (MERCIVIX)',
-    role: 'LEAD DEVELOPER',
+    name: 'AGBAEZE MERCY ADAEZE (MERCIVIX)',
+    role: 'LEAD WEB DEV',
     image: mercyImg,
     color: '#6f42c1'
   },
-
-  { 
-    name: 'SOLOMON PETER OIGOCHO', 
-    role: 'Sales Executive officer', 
-    color: '#0f5132', 
-    image: 'https://cdn.shopify.com/s/files/1/0656/6386/0839/files/Solomon.jpg?v=1774013002' 
-  },
-  
 ];
 
 
