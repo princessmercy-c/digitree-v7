@@ -12,8 +12,8 @@ import courseReactMobile from '../assets/course-react-mobile.webp';
 export const SITE = {
   name:         'Digitree Innovation',
   tagline:      'Innovate, earn and lead a digital generation',
-  phone:        '09037042744',
-whatsapp: '09037042744',
+  phone:        '+234 903 704 2744',
+  whatsapp:     '2349037042744',
   email:        'digitreeinnovation@gmail.com',
   location:     'Nsukka, Enugu State, Nigeria',
   founded:      '2025',
