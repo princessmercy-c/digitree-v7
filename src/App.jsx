@@ -1,17 +1,12 @@
-
-
-import React, { useState, useEffect } from 'react'; 
-import { Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useStore } from './hooks/useStore';
 import { FEATURED_GADGET } from './utils/constants';
-import { onAuthStateChanged } from 'firebase/auth'; 
-import { auth } from './utils/firebase'; 
-
-
+import { onAuthStateChanged, getRedirectResult } from 'firebase/auth';
+import { auth } from './utils/firebase';
 
 import Navbar  from './components/Navbar'
 import Footer  from './components/Footer'
-
 
 import Hero            from './components/Hero'
 import About           from './components/About'
@@ -23,7 +18,6 @@ import MeetTheTeam     from './components/MeetTheTeam'
 import BlogSection     from './components/BlogSection'
 import Testimonials    from './components/Testimonials'
 
-
 import CartSidebar from './components/CartSidebar'
 import PaymentPage from './components/PaymentPage'
 import AuthModal   from './components/AuthModal'
@@ -31,15 +25,57 @@ import EnrollModal from './components/EnrollModal'
 import Dashboard   from './components/Dashboard'
 import CertOverlay from './components/CertOverlay'
 
+/* ── Protected Route wrapper ── */
+function ProtectedRoute({ user, children }) {
+  if (user === undefined) return null; // still loading auth state
+  if (!user) return <Navigate to="/" replace />;
+  return children;
+}
+
+/* ── Login Screen ── */
+function LoginScreen({ onOpenAuth }) {
+  useEffect(() => { onOpenAuth(); }, []);
+  return (
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-dark) 100%)',
+      color: '#fff',
+      textAlign: 'center',
+      padding: '2rem',
+    }}>
+      <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 900, marginBottom: '1rem', letterSpacing: '-1px' }}>
+        Welcome to Digitree Innovation
+      </h1>
+      <p style={{ fontSize: '1.1rem', opacity: 0.8, marginBottom: '2rem', maxWidth: 500 }}>
+        Sign in to access our courses, gadgets, and exclusive content.
+      </p>
+      <button
+        className="btn btn-primary btn-lg"
+        style={{ background: '#fff', color: 'var(--color-primary)', fontWeight: 800, fontSize: '1.05rem', padding: '1rem 2.5rem', borderRadius: 12 }}
+        onClick={onOpenAuth}
+      >
+        Sign In / Create Account
+      </button>
+    </div>
+  );
+}
+
 export default function App() {
   const store = useStore()
- const [user, setUser] = useState(null);
+  const [user, setUser] = useState(undefined); // undefined = loading
+  const location = useLocation();
 
   useEffect(() => {
+    // Handle redirect result from signInWithRedirect (Google Auth)
+    getRedirectResult(auth).catch(() => {});
+
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      // This bridges Firebase with your existing store
-      if (currentUser) store.setCurrentUser(currentUser); 
+      if (currentUser) store.setCurrentUser(currentUser);
     });
     return () => unsubscribe();
   }, []);
@@ -81,36 +117,64 @@ export default function App() {
 
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 
+  /* ── Home page content ── */
+  const HomePage = (
+    <main>
+      <Hero
+        onExploreCourses={() => scrollTo('courses')}
+        onShopGadgets   ={() => scrollTo('gadgets')}
+      />
+      <About />
+      <Services />
+      <CoursesSection onEnroll={openEnroll} />
+      <FeaturedProduct onAddToCart={handleAddFeaturedToCart} />
+      <RequestGadget />
+      <MeetTheTeam />
+      <BlogSection />
+      <Testimonials />
+    </main>
+  );
+
   return (
     <>
-      <Navbar
-        cartQty     = {store.cartQty}
-        currentUser = {store.currentUser}
-        onOpenCart  = {() => setCartOpen(true)}
-        onOpenLogin = {() => setAuthOpen(true)}
-        onOpenDash  = {() => setDashOpen(true)}
-      />
+      {/* Only show Navbar & Footer when authenticated */}
+      {user && (
+        <Navbar
+          cartQty     = {store.cartQty}
+          currentUser = {store.currentUser}
+          onOpenCart  = {() => setCartOpen(true)}
+          onOpenLogin = {() => setAuthOpen(true)}
+          onOpenDash  = {() => setDashOpen(true)}
+        />
+      )}
 
       <Routes>
+        {/* Login gate: root path shows login if unauthenticated, redirects to /home if authenticated */}
         <Route path="/" element={
-          <main>
-            <Hero
-              onExploreCourses={() => scrollTo('courses')}
-              onShopGadgets   ={() => scrollTo('gadgets')}
-            />
-            <About />
-            <Services />
-            <CoursesSection onEnroll={openEnroll} />
-            <FeaturedProduct onAddToCart={handleAddFeaturedToCart} />
-            <RequestGadget />
-            <MeetTheTeam />
-            <BlogSection />
-            <Testimonials />
-          </main>
+          user ? <Navigate to="/home" replace /> : <LoginScreen onOpenAuth={() => setAuthOpen(true)} />
         } />
+
+        {/* Protected home route */}
+        <Route path="/home" element={
+          <ProtectedRoute user={user}>
+            {HomePage}
+          </ProtectedRoute>
+        } />
+
+        {/* Protected courses route */}
+        <Route path="/courses" element={
+          <ProtectedRoute user={user}>
+            <main>
+              <CoursesSection onEnroll={openEnroll} />
+            </main>
+          </ProtectedRoute>
+        } />
+
+        {/* Catch-all: redirect to home */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
-      <Footer />
+      {user && <Footer />}
 
       {/* Cart sidebar */}
       <CartSidebar

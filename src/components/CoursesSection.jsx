@@ -13,8 +13,18 @@ export default function CoursesSection({ onEnroll }) {
         <div className="grid-auto-300">
           {COURSES.map(c => (
             <article key={c.id} className="card" style={{ overflow:'hidden', cursor:'pointer' }} onClick={() => onEnroll(c.id)}>
-              <div style={{ height:155, background:'linear-gradient(135deg,var(--color-primary) 0%,var(--color-dark) 100%)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'3rem', position:'relative' }}>
-                {c.icon}
+              <div style={{ height:180, position:'relative', overflow:'hidden' }}>
+                {c.image ? (
+                  <img
+                    src={c.image}
+                    alt={c.title}
+                    style={{ width:'100%', height:'100%', objectFit:'cover', display:'block' }}
+                  />
+                ) : (
+                  <div style={{ height:'100%', background:'linear-gradient(135deg,var(--color-primary) 0%,var(--color-dark) 100%)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'3rem' }}>
+                    {c.icon}
+                  </div>
+                )}
                 <span style={{ position:'absolute', top:12, right:12, background:'var(--color-accent)', color:'#fff', fontSize:'0.68rem', fontWeight:700, padding:'0.22rem 0.6rem', borderRadius:20 }}>{c.badge}</span>
               </div>
               <div style={{ padding:'1.4rem' }}>

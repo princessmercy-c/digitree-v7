@@ -83,7 +83,7 @@ export function useStore() {
     cart, cartItems, cartQty, cartTotal,
     addToCart, changeQty, removeItem, clearCart,
     // Auth
-    currentUser, login, logout, registerUser, loginUser, loginWithGoogle,
+    currentUser, setCurrentUser: login, login, logout, registerUser, loginUser, loginWithGoogle,
     // Courses
     myCourses, enrollCourse, markComplete,
   }
