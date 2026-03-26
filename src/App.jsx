@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useStore } from './hooks/useStore';
 import { FEATURED_GADGET } from './utils/constants';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, getRedirectResult } from 'firebase/auth';
 import { auth } from './utils/firebase';
 
 import Navbar  from './components/Navbar'
@@ -70,6 +70,9 @@ export default function App() {
   const location = useLocation();
 
   useEffect(() => {
+    // Handle redirect result from signInWithRedirect (Google Auth)
+    getRedirectResult(auth).catch(() => {});
+
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       if (currentUser) store.setCurrentUser(currentUser);
