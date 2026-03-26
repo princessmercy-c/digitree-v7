@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 /* Decode helper — keeps literal values out of source and build output
@@ -22,3 +22,6 @@ const app = initializeApp(firebaseConfig);
 // Export Auth and Firestore
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+// Set persistence to LOCAL so the user stays logged in across browser restarts
+setPersistence(auth, browserLocalPersistence).catch(() => {});

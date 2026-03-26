@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useStore } from './hooks/useStore';
 import { FEATURED_GADGET } from './utils/constants';
 import { onAuthStateChanged, getRedirectResult } from 'firebase/auth';
@@ -25,9 +25,36 @@ import EnrollModal from './components/EnrollModal'
 import Dashboard   from './components/Dashboard'
 import CertOverlay from './components/CertOverlay'
 
+/* ── Loading Screen ── */
+function LoadingScreen() {
+  return (
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-dark) 100%)',
+      color: '#fff',
+      textAlign: 'center',
+      gap: '1.5rem',
+    }}>
+      <div style={{
+        width: 48, height: 48,
+        border: '4px solid rgba(255,255,255,0.3)',
+        borderTopColor: '#fff',
+        borderRadius: '50%',
+        animation: 'spin 0.8s linear infinite',
+      }} />
+      <p style={{ fontSize: '1.1rem', fontWeight: 600, opacity: 0.9 }}>Loading...</p>
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+    </div>
+  );
+}
+
 /* ── Protected Route wrapper ── */
-function ProtectedRoute({ user, children }) {
-  if (user === undefined) return null; // still loading auth state
+function ProtectedRoute({ user, authReady, children }) {
+  if (!authReady) return <LoadingScreen />;
   if (!user) return <Navigate to="/" replace />;
   return children;
 }
@@ -65,28 +92,42 @@ function LoginScreen({ onOpenAuth }) {
 }
 
 export default function App() {
+  /* ── All hooks at the very top — no conditional calls ── */
   const store = useStore()
-  const [user, setUser] = useState(undefined); // undefined = loading
-  const location = useLocation();
-
-  useEffect(() => {
-    // Handle redirect result from signInWithRedirect (Google Auth)
-    getRedirectResult(auth).catch(() => {});
-
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      if (currentUser) store.setCurrentUser(currentUser);
-    });
-    return () => unsubscribe();
-  }, []);
-
+  const [user, setUser] = useState(null)
+  const [authReady, setAuthReady] = useState(false)
   const [cartOpen,    setCartOpen]    = useState(false)
   const [paymentOpen, setPaymentOpen] = useState(false)
   const [authOpen,    setAuthOpen]    = useState(false)
   const [dashOpen,    setDashOpen]    = useState(false)
   const [enrollingId, setEnrollingId] = useState(null)
   const [certData,    setCertData]    = useState({ open: false, courseId: null, studentName: '' })
+  const location = useLocation();
+  const navigate = useNavigate();
 
+  /* ── Auth: handle redirect result + listen to state changes ── */
+  useEffect(() => {
+    let unsubscribe;
+
+    // Start listening to auth state immediately (don't wait for redirect)
+    unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setAuthReady(true);
+      if (currentUser) {
+        store.setCurrentUser(currentUser);
+        if (window.location.pathname === '/') {
+          navigate('/home', { replace: true });
+        }
+      }
+    });
+
+    // Also handle redirect result (non-blocking)
+    getRedirectResult(auth).catch(() => {});
+
+    return () => { if (unsubscribe) unsubscribe(); };
+  }, []);
+
+  /* ── Helpers (defined after hooks, before JSX) ── */
   const openEnroll = (courseId) => {
     if (!store.currentUser) { setAuthOpen(true); return }
     setEnrollingId(courseId)
@@ -149,21 +190,25 @@ export default function App() {
       )}
 
       <Routes>
-        {/* Login gate: root path shows login if unauthenticated, redirects to /home if authenticated */}
+        {/* Login gate: show loading while auth resolves, then login or redirect */}
         <Route path="/" element={
-          user ? <Navigate to="/home" replace /> : <LoginScreen onOpenAuth={() => setAuthOpen(true)} />
+          !authReady
+            ? <LoadingScreen />
+            : user
+              ? <Navigate to="/home" replace />
+              : <LoginScreen onOpenAuth={() => setAuthOpen(true)} />
         } />
 
         {/* Protected home route */}
         <Route path="/home" element={
-          <ProtectedRoute user={user}>
+          <ProtectedRoute user={user} authReady={authReady}>
             {HomePage}
           </ProtectedRoute>
         } />
 
         {/* Protected courses route */}
         <Route path="/courses" element={
-          <ProtectedRoute user={user}>
+          <ProtectedRoute user={user} authReady={authReady}>
             <main>
               <CoursesSection onEnroll={openEnroll} />
             </main>
